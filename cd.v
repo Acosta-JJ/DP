@@ -4,6 +4,7 @@ wire zalu, timer_end;
 wire [3:0] salida_deco;
 wire [15:0] instruccion;
 wire [9:0] dir, salida_muxizq, salida_sum, salida_muxpila, salida_pila, salida_muxinterrupcion;
+
 alu alu_derecha(rd1, rd2, op_alu, salida_alu, zalu); 
 ffd ffz(clk, reset, zalu, wez, z); 
 regfile banco_registro(clk, we3, instruccion[11:8], instruccion[7:4], instruccion[3:0], wd3, rd1, rd2);
@@ -25,6 +26,7 @@ mux2 #(8) mux_es(salida_muxmemdata, salida_mux4a1, s_cargaes, wd3);
 mux41 mux4a1(e, e1, e2, e3, instruccion[11], instruccion[10], salida_mux4a1); 
 mux2 #(10) mux_interrupcion(salida_muxpila,10'b1110000100 , s_interrupcion, salida_muxinterrupcion);
 timer temporizador(clk ,s3[7:2], s3[1:0], timer_end);
+
 assign opcode = instruccion[15:10];
 assign s = sa;
 assign s1 = sa1; 
