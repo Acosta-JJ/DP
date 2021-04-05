@@ -99,19 +99,79 @@ module mux41 ( input wire [7:0] a, b, c, d,
 
 endmodule
 
-//Timer
-module contador(input  wire clk,reset,
-             output wire interrupcion);
-reg salida;
-reg [6:0] temp = 0;            
-always @(posedge clk,posedge reset) begin
-	if(reset) begin
-		temp = 0;
-	  end	  
-	temp = temp + 1;
-	if (temp === 6'b110010) begin
-		salida = 1'b1;
-	end
-end  
-assign interrupcion = salida;
+module n_clk (input wire clk, input wire [1:0] basetiempo, output reg senal);
+  parameter miliseconds = 00;
+  parameter tenthseconds = 01;
+  parameter seconds = 10;
+  parameter mins = 11;
+  reg[27:0] contador = 28'h0000000;
+//Frecuencia de 24Mhz
+always @(posedge clk) begin
+  
+  if (basetiempo == seconds) begin
+      if (contador <= 28'h0bebc20) begin
+        contador = contador + 28'h0000001;
+        assign senal = 1'b1;
+      end else if(contador < 28'h17d7840) begin
+        contador = contador + 28'h0000001;
+        assign senal = 1'b0;
+      end else begin
+        contador = 28'h0000000;
+        assign senal = 1'b0;
+      end
+  end
+  if (basetiempo == tenthseconds) begin
+      if (contador <= 28'h01312d0) begin
+        contador = contador + 28'h0000001;
+       assign senal = 1'b1;
+      end else if(contador < 28'h02625a0) begin
+        contador = contador + 28'h0000001;
+        assign senal = 1'b0;
+      end else begin
+        contador = 28'h0000000;
+        assign senal = 1'b0;
+      end
+
+  end
+
+  if (basetiempo == mins) begin
+      if (contador <= 28'h47868c0) begin
+        contador = contador + 28'h0000001;
+        assign senal = 1'b1;
+      end else if(contador < 28'h8f0d180) begin
+        contador = contador + 28'h0000001;
+        assign senal = 1'b0;
+      end else begin
+        contador = 28'h0000000;
+        assign senal = 1'b0;
+      end
+
+  end
+
+  if (basetiempo == miliseconds) begin
+      if (contador <= 28'h00030d4) begin
+        contador = contador + 28'h0000001;
+        assign senal = 1'b1;
+      end else if(contador < 28'h00061a8) begin
+        contador = contador + 28'h0000001;
+        assign senal = 1'b0;
+      end else begin
+        contador = 28'h0000000;
+        assign senal = 1'b0;
+      end
+
+  end
+
+end
 endmodule
+
+module counter (input wire senal, input wire [5:0] umbral, output reg timer_end);
+reg [5:0] limit = 6'b000000;
+always @(posedge senal) begin
+  if (limit < umbral) begin
+    limit = limit + 6'b000000;
+  end else if (limit == umbral) begin
+      assign timer_end = 1'b1;
+  end
+end
+endmodule 

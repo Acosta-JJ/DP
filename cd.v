@@ -1,6 +1,6 @@
 module cd(input wire [7:0] e, e1, e2, e3, input wire clk, reset, s_inc, s_inm, we3, wez, push, pop, s_pop, write_enable, s_load, we_es, s_cargaes, s_interrupcion, input wire [2:0] op_alu, output wire z, output wire [5:0] opcode, output wire [7:0] s, s1, s2, s3);
 wire[7:0] rd1, rd2, salida_alu, wd3, salida_muxalu, salida_memdata, salida_muxmemdata, salida_mux4a1, sa, sa1 ,sa2 ,sa3;
-wire zalu;
+wire zalu, timer_end;
 wire [3:0] salida_deco;
 wire [15:0] instruccion;
 wire [9:0] dir, salida_muxizq, salida_sum, salida_muxpila, salida_pila, salida_muxinterrupcion;
@@ -24,6 +24,7 @@ registroes registro4(clk, reset, (salida_deco[3] & we_es), rd2, sa3);
 mux2 #(8) mux_es(salida_muxmemdata, salida_mux4a1, s_cargaes, wd3);
 mux41 mux4a1(e, e1, e2, e3, instruccion[11], instruccion[10], salida_mux4a1); 
 mux2 #(10) mux_interrupcion(salida_muxpila,10'b1110000100 , s_interrupcion, salida_muxinterrupcion);
+timer temporizador(clk ,s3[7:2], s3[1:0], timer_end);
 assign opcode = instruccion[15:10];
 assign s = sa;
 assign s1 = sa1; 
