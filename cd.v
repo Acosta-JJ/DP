@@ -26,7 +26,7 @@ mux2 #(8) mux_es(salida_muxmemdata, salida_mux4a1, s_cargaes, wd3);
 mux41 mux4a1(e, e1, e2, e3, instruccion[11], instruccion[10], salida_mux4a1); 
 mux2 #(10) mux_interrupcion(salida_muxpila,10'b1110000100 , s_interrupcion, salida_muxinterrupcion);
 timer temporizador(clk ,s3[7:2], s3[1:0], timer_end);
-
+//Duda la señal final del timer la trato como una interrupción? es decir lo coonecto al mux y como si de una interrupción se tratase
 assign opcode = instruccion[15:10];
 assign s = sa;
 assign s1 = sa1; 
