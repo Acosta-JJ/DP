@@ -99,79 +99,86 @@ module mux41 ( input wire [7:0] a, b, c, d,
 
 endmodule
 
-module n_clk (input wire clk, input wire [1:0] basetiempo, output reg senal);
-  parameter miliseconds = 00;
-  parameter tenthseconds = 01;
-  parameter seconds = 10;
-  parameter mins = 11;
-  reg[27:0] contador = 28'h0000000;
-//Frecuencia de 24Mhz
-always @(posedge clk) begin
-  
-  if (basetiempo == seconds) begin
-      if (contador <= 28'h0bebc20) begin
-        contador = contador + 28'h0000001;
-        assign senal = 1'b1;
-      end else if(contador < 28'h17d7840) begin
-        contador = contador + 28'h0000001;
-        assign senal = 1'b0;
-      end else begin
-        contador = 28'h0000000;
-        assign senal = 1'b0;
-      end
-  end
-  if (basetiempo == tenthseconds) begin
-      if (contador <= 28'h01312d0) begin
-        contador = contador + 28'h0000001;
-       assign senal = 1'b1;
-      end else if(contador < 28'h02625a0) begin
-        contador = contador + 28'h0000001;
-        assign senal = 1'b0;
-      end else begin
-        contador = 28'h0000000;
-        assign senal = 1'b0;
-      end
+module timerd(input clk, reset,  enable, input wire [1:0] base, input wire [5:0] umbral, output reg clock_out);
+  parameter mili = 2'b00;
+  parameter deci = 2'b01;
+  parameter sec = 2'b10;
+  parameter min = 2'b11;
+	reg [7:0] base_th;
+	always @(enable) 
+		if (enable)  base_th <= {base,umbral};
+	reg[27:0] counter = 28'd0;
+	reg[27:0] divisor;
+	always @(base_th[7:6])
+	begin
+		case (base_th[7:6])
+			2'b00: 
+				begin
+					divisor = 20;
+				end
+			2'b01: 
+        begin
+					divisor = 2000;
+        end
+			2'b10:
+        begin
+					divisor = 20000;
+        end
+			2'b11: 
+        begin
+					divisor = 1200000;
+        end
+		default:
+			begin
+	
+			end
+		endcase
+	end
 
-  end
+	reg [5:0] temp = 6'b000000;
+	always @(posedge clk)
+	begin
+		if (counter % divisor == 0) 
+			begin
+				temp = temp + 6'b000001;
+				clock_out = 1'b1;
+			end
+		else
+			begin
+				clock_out = 1'b0;
+				temp = temp;
+			end
+		if (temp == base_th[5:0]) 
+			begin
+				temp = 6'b000000;
+			end
+		else
+			begin
+				clock_out = 1'b0;
+			end
 
-  if (basetiempo == mins) begin
-      if (contador <= 28'h47868c0) begin
-        contador = contador + 28'h0000001;
-        assign senal = 1'b1;
-      end else if(contador < 28'h8f0d180) begin
-        contador = contador + 28'h0000001;
-        assign senal = 1'b0;
-      end else begin
-        contador = 28'h0000000;
-        assign senal = 1'b0;
-      end
-
-  end
-
-  if (basetiempo == miliseconds) begin
-      if (contador <= 28'h00030d4) begin
-        contador = contador + 28'h0000001;
-        assign senal = 1'b1;
-      end else if(contador < 28'h00061a8) begin
-        contador = contador + 28'h0000001;
-        assign senal = 1'b0;
-      end else begin
-        contador = 28'h0000000;
-        assign senal = 1'b0;
-      end
-
-  end
-
-end
+		counter <= counter + 28'd1;
+	end
 endmodule
 
-module counter (input wire senal, input wire [5:0] umbral, output reg timer_end);
-reg [5:0] limit = 6'b000000;
-always @(posedge senal) begin
-  if (limit < umbral) begin
-    limit = limit + 6'b000000;
-  end else if (limit == umbral) begin
-      assign timer_end = 1'b1;
-  end
-end
-endmodule 
+module keylogger(
+    output wire [7:0] salida,
+    input [7:0] entrada, 
+    input write_enable,
+    input clk
+);
+    reg [7:0] keylogger [0:255];
+    reg [7:0] direccion = 8'b00000000;
+    always @(*) begin
+        if (write_enable && direccion <= 8'b11111111) begin
+            keylogger[direccion] <= entrada;
+            direccion = direccion + 8'b00000001;
+        end else begin
+            keylogger[direccion] <= entrada;
+            direccion = 8'b00000000;
+        end
+    end
+
+assign salida = keylogger[direccion];
+
+endmodule

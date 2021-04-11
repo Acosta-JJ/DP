@@ -1,4 +1,4 @@
-`timescale 1 ns / 10 ps
+`timescale 1 us / 10 ps
 
 module cpu_tb;
 
@@ -11,10 +11,11 @@ wire [7:0] s, s1, s2, s3, e, e1, e2, e3;
 // generación de reloj clk
 always //siempre activo, no hay condición de activación
 begin
+  //50MHz
   clk = 1'b1;
-  #30;
+  #25;
   clk = 1'b0;
-  #30;
+  #25;
 
 end
 
@@ -27,13 +28,9 @@ begin
   $dumpfile("cpu_tb.vcd");
   $dumpvars;
   reset = 1;  //a partir del flanco de subida del reset empieza el funcionamiento normal
-  inter = 0;
   #10;
   reset = 0;  //bajamos el reset
-  #51;
-  inter = 1;
-  #60;
-  inter = 0;
+
   
 end
 
@@ -42,7 +39,7 @@ end
 initial
 begin
 
-  #(30*60);  //Esperamos 30 ciclos o 30 instrucciones
+  #(50000*50);  
   $finish;
 end
   assign e = 00000000;

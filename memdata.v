@@ -1,6 +1,6 @@
 module memdata(
     output wire [7:0] salida,
-    input [5:0] direccion,
+    input [7:0] direccion,
     input [7:0] entrada, 
     input write_enable,
     input clk
