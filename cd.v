@@ -1,6 +1,6 @@
-module cd(input wire [7:0] e, e1, e2, e3, input wire clk, reset, s_inc, s_inm, we3, wez, push, pop, s_pop, write_enable, s_load, we_es, s_cargaes, s_interrupcion, enable, write_key, input wire [2:0] op_alu, output wire z,clock_out, output wire [5:0] opcode, output wire [7:0] s, s1, s2, s3);
+module cd(input wire [7:0] e, e1, e2, e3,input wire [1:0] s_interrupcion, input wire clk, reset, s_inc, s_inm, we3, wez, push, pop, s_pop, write_enable, s_load, we_es, s_cargaes, enable, input wire [2:0] op_alu, output wire z,clock_out, output wire [5:0] opcode, output wire [7:0] s, s1, s2, s3);
 
-wire[7:0] rd1, rd2, salida_alu, wd3, salida_muxalu, salida_memdata, salida_muxmemdata, salida_mux4a1, sa, sa1 ,sa2 ,sa3, salida_keylogger;
+wire[7:0] rd1, rd2, salida_alu, wd3, salida_muxalu, salida_memdata, salida_muxmemdata, salida_mux4a1, sa, sa1 ,sa2 ,sa3;
 wire zalu;
 wire [3:0] salida_deco;
 wire [15:0] instruccion;
@@ -16,7 +16,7 @@ sum sumador(10'b0000000001, dir, salida_sum);
 registro #(10) pc(clk, reset, salida_muxinterrupcion, dir);
 mux2 #(10) mux_pila(salida_muxizq, salida_pila, s_pop, salida_muxpila);
 stack pila(clk, reset, push, pop, dir, salida_pila);
-memdata memoriadatos(salida_memdata, instruccion[7:0], salida_alu, write_enable, clk);
+memdata memoriadatos(salida_memdata, rd2, salida_alu, write_enable, clk);
 mux2 #(8) mux_memdata(salida_muxalu, salida_memdata, s_load, salida_muxmemdata);
 dec24 deco24(instruccion[11:10], salida_deco);
 registroes registro1(clk, reset, (salida_deco[0] & we_es), rd2, sa);
@@ -25,9 +25,10 @@ registroes registro3(clk, reset, (salida_deco[2] & we_es), rd2, sa2);
 registroes registro4(clk, reset, (salida_deco[3] & we_es), rd2, sa3);
 mux2 #(8) mux_es(salida_muxmemdata, salida_mux4a1, s_cargaes, wd3);
 mux41 mux4a1(e, e1, e2, e3, instruccion[11], instruccion[10], salida_mux4a1); 
-mux2 #(10) mux_interrupcion(salida_muxpila,10'b1110000100 , s_interrupcion, salida_muxinterrupcion);
+//mux2 #(10) mux_interrupcion(salida_muxpila,10'b1110000100 , s_interrupcion, salida_muxinterrupcion);
+mux42 mux_interrupcion(salida_muxpila, 10'b1110000100, 10'b1111101001,10'b000000000 ,s_interrupcion[1] ,s_interrupcion[0],salida_muxinterrupcion);
 timerd timer(clk, reset, enable, instruccion[7:6], instruccion[5:0], clock_out);
-keylogger keys(salida_keylogger, salida_alu, write_key, clk);
+
 
 assign opcode = instruccion[15:10];
 assign s = sa;

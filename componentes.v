@@ -99,6 +99,13 @@ module mux41 ( input wire [7:0] a, b, c, d,
 
 endmodule
 
+module mux42 ( input wire [9:0] a, b, c, d, 
+  input wire s1, s0,
+  output wire [9:0] out); 
+  assign out = s1 ? (s0 ? d : c) : (s0 ? b : a); 
+
+endmodule
+
 module timerd(input clk, reset,  enable, input wire [1:0] base, input wire [5:0] umbral, output reg clock_out);
   parameter mili = 2'b00;
   parameter deci = 2'b01;
@@ -161,7 +168,7 @@ module timerd(input clk, reset,  enable, input wire [1:0] base, input wire [5:0]
 	end
 endmodule
 
-module keylogger(
+/*module keylogger(
     output wire [7:0] salida,
     input [7:0] entrada, 
     input write_enable,
@@ -181,4 +188,4 @@ module keylogger(
 
 assign salida = keylogger[direccion];
 
-endmodule
+endmodule*/
