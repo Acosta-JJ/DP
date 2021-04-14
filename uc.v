@@ -23,405 +23,405 @@ parameter negar2 = 6'b1100??;
 
 always @(*) begin
     if (interrupcion) begin
-                            s_inc = 0;
-                            s_inm = 0;
-                            we3 = 0;
-                            wez = 0;
-                            op_alu = 000;
-                            push = 1;
-                            pop = 0;
-                            s_pop = 0;
-                            write_enable = 0;
-                            s_load = 0;
-                            we_es = 0;
-                            s_cargaes = 0; 
-                            s_interrupcion = 01;
-                            enable = 0;
+                            s_inc = 1'b0;
+                            s_inm = 1'b0;
+                            we3 = 1'b0;
+                            wez = 1'b0;
+                            op_alu = 3'b000;
+                            push = 1'b1;
+                            pop = 1'b0;
+                            s_pop = 1'b0;
+                            write_enable = 1'b0;
+                            s_load = 1'b0;
+                            we_es = 1'b0;
+                            s_cargaes = 1'b0; 
+                            s_interrupcion =2'b01;
+                            enable = 1'b0;
                             
     end else if (clock_out)begin
-                            s_inc = 0;
-                            s_inm = 0;
-                            we3 = 0;
-                            wez = 0;
-                            op_alu = 000;
-                            push = 1;
-                            pop = 0;
-                            s_pop = 0;
-                            write_enable = 0;
-                            s_load = 0;
-                            we_es = 0;
-                            s_cargaes = 0; 
-                            s_interrupcion = 10;
-                            enable = 0;
+                            s_inc = 1'b0;
+                            s_inm = 1'b0;
+                            we3 = 1'b0;
+                            wez = 1'b0;
+                            op_alu = 3'b000;
+                            push = 1'b1;
+                            pop = 1'b0;
+                            s_pop = 1'b0;
+                            write_enable = 1'b0;
+                            s_load = 1'b0;
+                            we_es = 1'b0;
+                            s_cargaes = 1'b0; 
+                            s_interrupcion =2'b10;
+                            enable = 1'b0;
     end else begin
                             
     casez (opcode)
         salto_sub:begin
-                            s_inc = 0;
-                            s_inm = 0;
-                            we3 = 0;
-                            wez = 0;
-                            op_alu = 000;
-                            push = 1;
-                            pop = 0;
-                            s_pop = 0;
-                            write_enable = 0;
-                            s_load = 0;
-                            we_es = 0;
-                            s_cargaes = 0;
-                            s_interrupcion = 00;
-                            enable = 0;
+                            s_inc = 1'b0;
+                            s_inm = 1'b0;
+                            we3 = 1'b0;
+                            wez = 1'b0;
+                            op_alu = 3'b000;
+                            push = 1'b1;
+                            pop = 1'b0;
+                            s_pop = 1'b0;
+                            write_enable = 1'b0;
+                            s_load = 1'b0;
+                            we_es = 1'b0;
+                            s_cargaes = 1'b0;
+                            s_interrupcion =2'b00;
+                            enable = 1'b0;
                             
                         end
         retorno_sub:begin
-                            s_inc = 0;
-                            s_inm = 0;
-                            we3 = 0;
-                            wez = 0;
-                            op_alu = 000;
-                            push = 0;
-                            pop = 1;
-                            s_pop = 1;
-                            write_enable = 0;
-                            s_load = 0;
-                            we_es = 0;
-                            s_cargaes = 0;
-                            s_interrupcion = 00;
-                            enable = 0;
+                            s_inc = 1'b0;
+                            s_inm = 1'b0;
+                            we3 = 1'b0;
+                            wez = 1'b0;
+                            op_alu = 3'b000;
+                            push = 1'b0;
+                            pop = 1'b1;
+                            s_pop = 1'b1;
+                            write_enable = 1'b0;
+                            s_load = 1'b0;
+                            we_es = 1'b0;
+                            s_cargaes = 1'b0;
+                            s_interrupcion =2'b00;
+                            enable = 1'b0;
                             
                         end
         salto_absoluto:begin
-                            s_inc = 0;
-                            s_inm = 0;
-                            we3 = 0;
-                            wez = 0;
-                            op_alu = 000;
-                            push = 0;
-                            pop = 0;
-                            s_pop = 0;
-                            write_enable = 0;
-                            s_load = 0;
-                            we_es = 0;
-                            s_cargaes = 0;
-                            s_interrupcion = 00;
-                            enable = 0;
+                            s_inc = 1'b0;
+                            s_inm = 1'b0;
+                            we3 = 1'b0;
+                            wez = 1'b0;
+                            op_alu = 3'b000;
+                            push = 1'b0;
+                            pop = 1'b0;
+                            s_pop = 1'b0;
+                            write_enable = 1'b0;
+                            s_load = 1'b0;
+                            we_es = 1'b0;
+                            s_cargaes = 1'b0;
+                            s_interrupcion =2'b00;
+                            enable = 1'b0;
                             
                         end
         salto_condicional_z:begin
             if(z == 0) begin
-                s_inc = 0;
-                s_inm = 0;
-                we3 = 0;
-                wez = 1;
-                op_alu = 000;
-                push = 0;
-                pop = 0;
-                s_pop = 0;
-                write_enable = 0;
-                s_load = 0; 
-                we_es = 0;
-                s_cargaes = 0;
-                s_interrupcion = 00;
-                enable = 0;
+                s_inc = 1'b0;
+                s_inm = 1'b0;
+                we3 = 1'b0;
+                wez = 1'b1;
+                op_alu = 3'b000;
+                push = 1'b0;
+                pop = 1'b0;
+                s_pop = 1'b0;
+                write_enable = 1'b0;
+                s_load = 1'b0; 
+                we_es = 1'b0;
+                s_cargaes = 1'b0;
+                s_interrupcion =2'b00;
+                enable = 1'b0;
                 
             end else begin
-                s_inc = 1;
-                s_inm = 0;
-                we3 = 0;
-                wez = 1;
-                op_alu = 000;
-                push = 0;
-                pop = 0;
-                s_pop = 0;
-                write_enable = 0;
-                s_load = 0;
-                we_es = 0;
-                s_cargaes = 0;
-                s_interrupcion = 00;
-                enable = 0;
+                s_inc = 1'b1;
+                s_inm = 1'b0;
+                we3 = 1'b0;
+                wez = 1'b1;
+                op_alu = 3'b000;
+                push = 1'b0;
+                pop = 1'b0;
+                s_pop = 1'b0;
+                write_enable = 1'b0;
+                s_load = 1'b0;
+                we_es = 1'b0;
+                s_cargaes = 1'b0;
+                s_interrupcion =2'b00;
+                enable = 1'b0;
                 
             end
             
         end
         salto_condicional_noz:begin
             if(z == 0) begin
-                s_inc = 1;
-                s_inm = 0;
-                we3 = 0;
-                wez = 1;
-                op_alu = 000;
-                push = 0;
-                pop = 0;
-                s_pop = 0;
-                write_enable = 0;
-                s_load = 0;
-                we_es = 0;
-                s_cargaes = 0;
-                s_interrupcion = 00;
-                enable = 0;
+                s_inc = 1'b1;
+                s_inm = 1'b0;
+                we3 = 1'b0;
+                wez = 1'b1;
+                op_alu = 3'b000;
+                push = 1'b0;
+                pop = 1'b0;
+                s_pop = 1'b0;
+                write_enable = 1'b0;
+                s_load = 1'b0;
+                we_es = 1'b0;
+                s_cargaes = 1'b0;
+                s_interrupcion =2'b00;
+                enable = 1'b0;
                 
             end else begin
-                s_inc = 0;
-                s_inm = 0;
-                we3 = 0;
-                wez = 1;
-                op_alu = 000;
-                push = 0;
-                pop = 0;
-                s_pop = 0;
-                write_enable = 0;
-                s_load = 0;
-                we_es = 0;
-                s_cargaes = 0;
-                s_interrupcion = 00;
-                enable = 0;
+                s_inc = 1'b0;
+                s_inm = 1'b0;
+                we3 = 1'b0;
+                wez = 1'b1;
+                op_alu = 3'b000;
+                push = 1'b0;
+                pop = 1'b0;
+                s_pop = 1'b0;
+                write_enable = 1'b0;
+                s_load = 1'b0;
+                we_es = 1'b0;
+                s_cargaes = 1'b0;
+                s_interrupcion =2'b00;
+                enable = 1'b0;
                 
             end
             
         end
         carga_inmediata: begin
-            s_inc = 1;
-            s_inm = 1;
-            we3 = 1;
-            wez = 0;
-            op_alu = 000;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 0;
-            we_es = 0;
-            s_cargaes = 0; 
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b1;
+            we3 = 1'b1;
+            wez = 1'b0;
+            op_alu = 3'b000;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b0;
+            we_es = 1'b0;
+            s_cargaes = 1'b0; 
+            s_interrupcion =2'b00;
+            enable = 1'b0;
             
         end
 
         suma: begin
-            s_inc = 1;
-            s_inm = 0;
-            we3 = 1;
-            wez = 1;
-            op_alu = 010;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 0;
-            we_es = 0;
-            s_cargaes = 0;
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b0;
+            we3 = 1'b1;
+            wez = 1'b1;
+            op_alu = 3'b010;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b0;
+            we_es = 1'b0;
+            s_cargaes = 1'b0;
+            s_interrupcion =2'b00;
+            enable = 1'b0;
             
         end
         resta: begin
-            s_inc = 1;
-            s_inm = 0;
-            we3 = 1;
-            wez = 1;
-            op_alu = 011;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 0;
-            we_es = 0;
-            s_cargaes = 0;
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b0;
+            we3 = 1'b1;
+            wez = 1'b1;
+            op_alu = 3'b011;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b0;
+            we_es = 1'b0;
+            s_cargaes = 1'b0;
+            s_interrupcion =2'b00;
+            enable = 1'b0;
             
         end
         guardar_memoria: begin
-            s_inc = 1;
-            s_inm = 0;
-            we3 = 0;
-            wez = 0;
-            op_alu = 000;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 1;
-            s_load = 0;
-            we_es = 0;
-            s_cargaes = 0;
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b0;
+            we3 = 1'b0;
+            wez = 1'b0;
+            op_alu = 3'b000;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b1;
+            s_load = 1'b0;
+            we_es = 1'b0;
+            s_cargaes = 1'b0;
+            s_interrupcion =2'b00;
+            enable = 1'b0;
             
             
         end
         cargar_memoria: begin
-            s_inc = 1;
-            s_inm = 0;
-            we3 = 1;
-            wez = 0;
-            op_alu = 000;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 1;
-            we_es = 0;
-            s_cargaes = 0;
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b0;
+            we3 = 1'b1;
+            wez = 1'b0;
+            op_alu = 3'b000;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b1;
+            we_es = 1'b0;
+            s_cargaes = 1'b0;
+            s_interrupcion =2'b00;
+            enable = 1'b0;
             
             
         end
         entrada_es: begin
-            s_inc = 1;
-            s_inm = 0;
-            we3 = 1;
-            wez = 0;
-            op_alu = 000;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 0;
-            we_es = 0;
-            s_cargaes = 1;
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b0;
+            we3 = 1'b1;
+            wez = 1'b0;
+            op_alu = 3'b000;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b0;
+            we_es = 1'b0;
+            s_cargaes = 1'b1;
+            s_interrupcion =2'b00;
+            enable = 1'b0;
             
             
         end
         salida_es: begin
-            s_inc = 1;
-            s_inm = 0;
-            we3 = 0;
-            wez = 0;
-            op_alu = 000;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 0;
-            we_es = 1;
-            s_cargaes = 0;
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b0;
+            we3 = 1'b0;
+            wez = 1'b0;
+            op_alu = 3'b000;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b0;
+            we_es = 1'b1;
+            s_cargaes = 1'b0;
+            s_interrupcion =2'b00;
+            enable = 1'b0;
             
             
         end
         clk_conf:begin
-                            s_inc = 1;
-                            s_inm = 0;
-                            we3 = 0;
-                            wez = 0;
-                            op_alu = 000;
-                            push = 0;
-                            pop = 0;
-                            s_pop = 0;
-                            write_enable = 0;
-                            s_load = 0;
-                            we_es = 0;
-                            s_cargaes = 0;
-                            s_interrupcion = 00;
-                            enable = 1;
+                            s_inc = 1'b1;
+                            s_inm = 1'b0;
+                            we3 = 1'b0;
+                            wez = 1'b0;
+                            op_alu = 3'b000;
+                            push = 1'b0;
+                            pop = 1'b0;
+                            s_pop = 1'b0;
+                            write_enable = 1'b0;
+                            s_load = 1'b0;
+                            we_es = 1'b0;
+                            s_cargaes = 1'b0;
+                            s_interrupcion =2'b00;
+                            enable = 1'b1;
                             
                         end
 
         inversion: begin
-            s_inc = 1;
-            s_inm = 0;
-            we3 = 1;
-            wez = 1;
-            op_alu = 001;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 0;
-            we_es = 0;
-            s_cargaes = 0;
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b0;
+            we3 = 1'b1;
+            wez = 1'b1;
+            op_alu = 3'b001;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b0;
+            we_es = 1'b0;
+            s_cargaes = 1'b0;
+            s_interrupcion =2'b00;
+            enable = 1'b0;
         end
         
         AND: begin
-            s_inc = 1;
-            s_inm = 0;
-            we3 = 1;
-            wez = 1;
-            op_alu = 100;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 0;
-            we_es = 0;
-            s_cargaes = 0;
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b0;
+            we3 = 1'b1;
+            wez = 1'b1;
+            op_alu = 3'b100;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b0;
+            we_es = 1'b0;
+            s_cargaes = 1'b0;
+            s_interrupcion =2'b00;
+            enable = 1'b0;
             
         end
         OR: begin
-            s_inc = 1;
-            s_inm = 0;
-            we3 = 1;
-            wez = 1;
-            op_alu = 101;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 0;
-            we_es = 0;
-            s_cargaes = 0;
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b0;
+            we3 = 1'b1;
+            wez = 1'b1;
+            op_alu = 3'b101;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b0;
+            we_es = 1'b0;
+            s_cargaes = 1'b0;
+            s_interrupcion =2'b00;
+            enable = 1'b0;
             
         end
         negar1: begin
-            s_inc = 1;
-            s_inm = 0;
-            we3 = 1;
-            wez = 1;
-            op_alu = 110;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 0;
-            we_es = 0;
-            s_cargaes = 0;
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b0;
+            we3 = 1'b1;
+            wez = 1'b1;
+            op_alu = 3'b110;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b0;
+            we_es = 1'b0;
+            s_cargaes = 1'b0;
+            s_interrupcion =2'b00;
+            enable = 1'b0;
         end
         
           negar2: begin
-            s_inc = 1;
-            s_inm = 0;
-            we3 = 1;
-            wez = 1;
-            op_alu = 111;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 0;
-            we_es = 0;
-            s_cargaes = 0;
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b1;
+            s_inm = 1'b0;
+            we3 = 1'b1;
+            wez = 1'b1;
+            op_alu = 3'b111;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b0;
+            we_es = 1'b0;
+            s_cargaes = 1'b0;
+            s_interrupcion =2'b00;
+            enable = 1'b0;
             
         
           end
         default: begin
-            s_inc = 0;
-            s_inm = 0;
-            we3 = 0;
-            wez = 0;
-            op_alu = 000;
-            push = 0;
-            pop = 0;
-            s_pop = 0;
-            write_enable = 0;
-            s_load = 0;
-            we_es = 0;
-            s_cargaes = 0; 
-            s_interrupcion = 00;
-            enable = 0;
+            s_inc = 1'b0;
+            s_inm = 1'b0;
+            we3 = 1'b0;
+            wez = 1'b0;
+            op_alu = 3'b000;
+            push = 1'b0;
+            pop = 1'b0;
+            s_pop = 1'b0;
+            write_enable = 1'b0;
+            s_load = 1'b0;
+            we_es = 1'b0;
+            s_cargaes = 1'b0; 
+            s_interrupcion =2'b00;
+            enable = 1'b0;
             
         end
     endcase

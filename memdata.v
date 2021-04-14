@@ -7,7 +7,7 @@ module memdata(
 );
     reg [7:0] memoria [0:255];
 
-    always @(*) begin
+    always @(posedge clk) begin
         if (write_enable) begin
             memoria[direccion] <= entrada;
         end

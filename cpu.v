@@ -1,7 +1,7 @@
 module cpu(input wire clk, reset, interrupcion, input wire [7:0] e, e1, e2, e3, output wire [7:0] s, s1, s2, s3);
 
 wire [5:0] opcode;
-wire z, s_inc, s_inm, we3, wez, push, pop, s_pop, write_enable, s_load, s_cargaes;
+wire z, s_inc, s_inm, we3, wez, push, pop, s_pop, write_enable, s_load, s_cargaes, we_es, clock_out, enable;
 wire [1:0] s_interrupcion;
 wire [2:0] op_alu;
 

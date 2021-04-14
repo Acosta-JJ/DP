@@ -7,7 +7,7 @@ initial
     sp = 4'b0000;
   end
 
-always @ (push, pop, reset) begin
+always @ (posedge clk) begin
 	  if(reset) begin
 		    sp = 0;
       end
