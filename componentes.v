@@ -21,8 +21,8 @@ module regfile(input  wire        clk,
   always @(posedge clk)
     if (we3) regb[wa3] <= wd3;	
   
-  assign rd1 = (ra1 != 0) ? regb[ra1] : 0;
-  assign rd2 = (ra2 != 0) ? regb[ra2] : 0;
+  assign rd1 = (ra1 != 0) ? regb[ra1] : 8'b00000000;
+  assign rd2 = (ra2 != 0) ? regb[ra2] : 8'b00000000;
 
 endmodule
 

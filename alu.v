@@ -16,7 +16,7 @@ begin
     3'b101: s = a | b;
     3'b110: s = -a;
     3'b111: s = -b;
-	default: s = 'bx; //desconocido en cualquier otro caso (x � z), por si se modifica el c�digo
+	default: s = 8'b????????; //desconocido en cualquier otro caso (x � z), por si se modifica el c�digo
   endcase
 end
 
